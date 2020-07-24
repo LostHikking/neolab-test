@@ -1,0 +1,4 @@
+SELECT COUNT
+SELECT COUNT WHERE TYPE = "ТРАВОЯДНОЕ"
+SELECT COUNT WHERE TYPE = "ТРАВОЯДНОЕ" OR "ПЛОТОЯДНОЕ" AND GROWTH = "МАЛЕНЬКОЕ"
+SELECT COUNT WHERE TYPE = "ВСЕЯДНОЕ" AND GROWTH != "ВЫСОКОЕ"
