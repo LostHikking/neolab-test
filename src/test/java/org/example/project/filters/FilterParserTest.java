@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class FilterParserTest {
-	FilterParser filterParser = new FilterParser();
+	final FilterParser filterParser = new FilterParser();
 
 	final String queryCountAll = "SELECT COUNT";
 	final String queryCountHerbivore = "SELECT COUNT WHERE TYPE = \"ТРАВОЯДНОЕ\"";
@@ -38,11 +38,11 @@ class FilterParserTest {
 	@DisplayName(queryCountAll)
 	void parseQueryAllTest() {
 		//Парсим Predicate из String
-		Predicate<Animal> predicateCountAll = filterParser.parseQuery(queryCountAll);
-		Predicate<Animal> expectedPredicate = animal -> true;
+		final Predicate<Animal> predicateCountAll = filterParser.parseQuery(queryCountAll);
+		final Predicate<Animal> expectedPredicate = animal -> true;
 		//Создаём список для проверки
-		List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
-		List<Animal> actualList = testSet.stream().filter(predicateCountAll).collect(Collectors.toList());
+		final List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
+		final List<Animal> actualList = testSet.stream().filter(predicateCountAll).collect(Collectors.toList());
 		//Проверяем
 		assertEquals(expectedList, actualList);
 	}
@@ -51,13 +51,13 @@ class FilterParserTest {
 	@DisplayName(queryCountHerbivore)
 	void parseQueryHerbivoreTest() {
 		//Парсим Predicate из String
-		Predicate<Animal> actualPredicate = filterParser.parseQuery(queryCountHerbivore);
-		Predicate<Animal> expectedPredicate = animal -> animal.getType().equals("ТРАВОЯДНОЕ");
-		Predicate<Animal> unexpectedPredicate = filterParser.parseQuery(queryCountAll);
+		final Predicate<Animal> actualPredicate = filterParser.parseQuery(queryCountHerbivore);
+		final Predicate<Animal> expectedPredicate = animal -> animal.getType().equals("ТРАВОЯДНОЕ");
+		final Predicate<Animal> unexpectedPredicate = filterParser.parseQuery(queryCountAll);
 		//Создаём список для проверки
-		List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
-		List<Animal> actualList = testSet.stream().filter(actualPredicate).collect(Collectors.toList());
-		List<Animal> unexpectedList = testSet.stream().filter(unexpectedPredicate).collect(Collectors.toList());
+		final List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
+		final List<Animal> actualList = testSet.stream().filter(actualPredicate).collect(Collectors.toList());
+		final List<Animal> unexpectedList = testSet.stream().filter(unexpectedPredicate).collect(Collectors.toList());
 		//Проверяем
 		assertNotEquals(unexpectedList, actualList);
 		assertEquals(expectedList, actualList);
@@ -67,19 +67,19 @@ class FilterParserTest {
 	@DisplayName(queryWithOrAndAnd)
 	void parseQueryWithOrAndAndTest() {
 		//Парсим Predicate из String
-		Predicate<Animal> actualPredicate = filterParser.parseQuery(queryWithOrAndAnd);
+		final Predicate<Animal> actualPredicate = filterParser.parseQuery(queryWithOrAndAnd);
 
-		Predicate<Animal> firstPredicate = animal -> animal.getGrowth().equals("МАЛЕНЬКОЕ");
-		Predicate<Animal> secondPredicate = animal -> animal.getType().equals("ТРАВОЯДНОЕ");
-		Predicate<Animal> thirdPredicate = animal -> animal.getType().equals("ПЛОТОЯДНОЕ");
+		final Predicate<Animal> firstPredicate = animal -> animal.getGrowth().equals("МАЛЕНЬКОЕ");
+		final Predicate<Animal> secondPredicate = animal -> animal.getType().equals("ТРАВОЯДНОЕ");
+		final Predicate<Animal> thirdPredicate = animal -> animal.getType().equals("ПЛОТОЯДНОЕ");
 
-		Predicate<Animal> expectedPredicate = (secondPredicate.or(thirdPredicate)).and(firstPredicate);
+		final Predicate<Animal> expectedPredicate = (secondPredicate.or(thirdPredicate)).and(firstPredicate);
 
-		Predicate<Animal> unexpectedPredicate = filterParser.parseQuery(queryCountAll);
+		final Predicate<Animal> unexpectedPredicate = filterParser.parseQuery(queryCountAll);
 		//Создаём список для проверки
-		List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
-		List<Animal> actualList = testSet.stream().filter(actualPredicate).collect(Collectors.toList());
-		List<Animal> unexpectedList = testSet.stream().filter(unexpectedPredicate).collect(Collectors.toList());
+		final List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
+		final List<Animal> actualList = testSet.stream().filter(actualPredicate).collect(Collectors.toList());
+		final List<Animal> unexpectedList = testSet.stream().filter(unexpectedPredicate).collect(Collectors.toList());
 		//Проверяем
 		assertNotEquals(unexpectedList, actualList);
 		assertEquals(expectedList, actualList);
@@ -89,17 +89,17 @@ class FilterParserTest {
 	@DisplayName(queryWithNot)
 	void parseQueryWithNotTest() {
 		//Парсим Predicate из String
-		Predicate<Animal> predicateCountAll = filterParser.parseQuery(queryWithNot);
+		final Predicate<Animal> predicateCountAll = filterParser.parseQuery(queryWithNot);
 
-		Predicate<Animal> firstPredicate = animal -> animal.getType().equals("ВСЕЯДНОЕ");
-		Predicate<Animal> secondPredicate = animal -> !animal.getGrowth().equals("ВЫСОКОЕ");
-		Predicate<Animal> expectedPredicate = firstPredicate.and(secondPredicate);
+		final Predicate<Animal> firstPredicate = animal -> animal.getType().equals("ВСЕЯДНОЕ");
+		final Predicate<Animal> secondPredicate = animal -> !animal.getGrowth().equals("ВЫСОКОЕ");
+		final Predicate<Animal> expectedPredicate = firstPredicate.and(secondPredicate);
 
-		Predicate<Animal> unexpectedPredicate = filterParser.parseQuery(queryCountAll);
+		final Predicate<Animal> unexpectedPredicate = filterParser.parseQuery(queryCountAll);
 		//Создаём список для проверки
-		List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
-		List<Animal> actualList = testSet.stream().filter(predicateCountAll).collect(Collectors.toList());
-		List<Animal> unexpectedList = testSet.stream().filter(unexpectedPredicate).collect(Collectors.toList());
+		final List<Animal> expectedList = testSet.stream().filter(expectedPredicate).collect(Collectors.toList());
+		final List<Animal> actualList = testSet.stream().filter(predicateCountAll).collect(Collectors.toList());
+		final List<Animal> unexpectedList = testSet.stream().filter(unexpectedPredicate).collect(Collectors.toList());
 		//Проверяем
 		assertNotEquals(unexpectedList, actualList);
 		assertEquals(expectedList, actualList);

@@ -23,7 +23,7 @@ public class CSVReader implements Reader {
 
 
 	public Map<String, Integer> getHeader() {
-		Map<String, Integer> nameToNumber = new HashMap<>();
+		final Map<String, Integer> nameToNumber = new HashMap<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			String line = br.readLine();
 			String[] headers = line.split(",");
@@ -39,7 +39,7 @@ public class CSVReader implements Reader {
 	}
 
 	private List<String> readLines() {
-		List<String> lines = new ArrayList<>();
+		final List<String> lines = new ArrayList<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			//пропускаем строку, потому что там заголовок
 			br.readLine();

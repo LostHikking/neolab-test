@@ -1,14 +1,13 @@
 package org.example.project.objects.database;
 
 import org.example.project.objects.dto.Animal;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AnimalReaderTest {
 
@@ -25,9 +24,9 @@ class AnimalReaderTest {
 
 	@Test
 	void readObjectsTest() {
-		AnimalReader animalReader = new AnimalReader(new CSVReader("db.csv"));
-		List<Animal> actualList = animalReader.readObjects();
-		List<Animal> unexpectedList = Collections.emptyList();
+		final AnimalReader animalReader = new AnimalReader(new CSVReader("db.csv"));
+		final List<Animal> actualList = animalReader.readObjects();
+		final List<Animal> unexpectedList = Collections.emptyList();
 		assertEquals(testSet, actualList);
 		assertNotEquals(unexpectedList, actualList);
 	}
