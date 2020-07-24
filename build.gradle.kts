@@ -12,9 +12,6 @@ repositories {
 }
 
 dependencies {
-	compileOnly("com.google.dagger:dagger:2.28.3")
-	annotationProcessor("com.google.dagger:dagger-compiler:2.28.3")
-
 	testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
