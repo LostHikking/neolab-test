@@ -1,19 +1,19 @@
 package org.example.project.filters;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import org.example.project.objects.dto.Animal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 class FilterParserTest {
-	final FilterParser filterParser = new FilterParser();
+
+	final SQLFilterParser<Animal> filterParser = new SQLFilterParser<>(Animal.class);
 
 	final String queryCountAll = "SELECT COUNT";
 	final String queryCountHerbivore = "SELECT COUNT WHERE TYPE = \"ТРАВОЯДНОЕ\"";
@@ -109,9 +109,7 @@ class FilterParserTest {
 	@DisplayName("Парсинг случайных символов")
 	void parseWrongSyntax() {
 		Assertions.assertThrows(IllegalArgumentException.class, () ->
-				{
-					Predicate<Animal> wrongPredicate = filterParser.parseQuery(someRandomString);
-				}
+				filterParser.parseQuery(someRandomString)
 		);
 	}
 }
