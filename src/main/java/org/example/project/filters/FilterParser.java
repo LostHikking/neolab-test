@@ -7,9 +7,9 @@ public interface FilterParser<T> {
 
   /**
    * @param rawFilterSource источник запросов в формате String
-   * @return Список распарсенных Predicate для класса Animal, полученных из источника
+   * @return Список распарсенных Predicate для класса Animal, полученных из rawFilterSource
    */
-  List<Predicate<T>> parseRawFilterSource(RawFilterSource rawFilterSource);
+  List<Predicate<T>> getAllCountQueries(RawFilterSource rawFilterSource);
 
   /**
    * @param command запрос для парсинга

@@ -15,7 +15,7 @@ class AnimalCounterApp {
 
 		//Создаём список Predicate для применения их в вильтрах далее
 		final List<Predicate<Animal>> predicates = new SQLFilterParser<>(Animal.class)
-				.parseRawFilterSource(new FilterReader("animal.filter"));
+        .getAllCountQueries(new FilterReader("animal.filter"));
 
 		//Применяем все фильтры по очереди и выводим количество на экран
 		predicates.forEach(predicate ->

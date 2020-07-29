@@ -19,7 +19,8 @@ public class SQLFilterParser<T> implements FilterParser<T> {
 	 * @param rawFilterSource источник запросов в формате SQL
 	 * @return Список распарсенных Predicate для класса T, полученных из источника
 	 */
-	public List<Predicate<T>> parseRawFilterSource(RawFilterSource rawFilterSource) {
+	@Override
+	public List<Predicate<T>> getAllCountQueries(RawFilterSource rawFilterSource) {
 		return rawFilterSource.getRawFilters().stream().map(this::parseQuery)
 				.collect(Collectors.toList());
 	}
@@ -28,16 +29,17 @@ public class SQLFilterParser<T> implements FilterParser<T> {
 	 * @param command запрос для парсинга SQL
 	 * @return Распарсенный Predicate
 	 */
+	@Override
 	public Predicate<T> parseQuery(String command) {
-		command = command.substring("SELECT COUNT".length());
+		String substring = command.substring("SELECT COUNT".length());
 		//Смотрим, есть ли условие для фильтра
-		if ((command.length() == 0)) {
+		if ((substring.length() == 0)) {
 			return animal -> true;
 		}
-		List<String> words = Arrays.asList(command.replace(";", "").split(" "));
+		List<String> words = Arrays.asList(substring.replace(";", "").split(" "));
 		if (words.get(1).equals("WHERE")) {
-			command = command.substring(" WHERE ".length());
-			words = Arrays.asList(command.split(" "));
+			substring = substring.substring(" WHERE ".length());
+			words = Arrays.asList(substring.split(" "));
 		}
 		//Если есть, разбиваем их
 		final List<String> parameters = Arrays.asList(String.join(" ", words).split(" AND "));
